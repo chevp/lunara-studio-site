@@ -5,7 +5,7 @@ This repository contains the public landing page and download site for Lunara St
 Lunara Studio is a visual host application for Lunara plugins, with support for plugin previews, hierarchical structures, and configuration interfaces.
 
 ## 🌐 Live Site
-👉 [Visit ECS Studio Website](https://chevp.github.io/lunara-studio-site/)
+👉 [Visit Lunara Studio Website](https://chevp.github.io/lunara-studio-site/)
 
 ## 📁 Contents
 
