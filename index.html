@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lunara Studio – Visual Plugin Host</title>
+  <link rel="icon" href="assets/lunara-icon256.jpg" type="image/jpeg" sizes="256x256">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --color-bg: #0a0d1b;
+      --color-section: #11131f;
+      --color-accent: #ffa94d;
+      --color-accent-hover: #e08930;
+      --color-text: #e5e7eb;
+      --color-muted: #9ca3af;
+      --color-border: #1f2937;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #0a0d1b, #06080f);
+      color: var(--color-text);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .moon {
+      position: fixed;
+      top: -10px;
+      z-index: 0;
+      color: rgba(255, 213, 128, 0.15);
+      font-size: 1.2rem;
+      user-select: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    header.hero {
+      background: linear-gradient(to right, #11182b, #1a2438);
+      color: white;
+      padding: 100px 20px 80px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    header.hero h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    header.hero p {
+      font-size: 18px;
+      color: #cbd5e1;
+    }
+
+    .section {
+      max-width: 960px;
+      margin: auto;
+      padding: 60px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section h2 {
+      font-size: 28px;
+      color: var(--color-accent);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .section p {
+      color: var(--color-muted);
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    @media (max-width: 768px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature-card {
+      background-color: var(--color-section);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 24px;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-4px);
+    }
+
+    .feature-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: var(--color-text);
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--color-muted);
+    }
+
+    .download-section {
+      background-color: var(--color-section);
+      padding: 60px 20px;
+      text-align: center;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .download-section h2 {
+      font-size: 26px;
+      color: var(--color-accent);
+    }
+
+    .download-button {
+      background-color: var(--color-accent);
+      color: black;
+      padding: 14px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 6px;
+      display: inline-block;
+      margin-top: 20px;
+      transition: background-color 0.2s ease;
+    }
+
+    .download-button:hover {
+      background-color: var(--color-accent-hover);
+    }
+
+    .download-button.disabled {
+      background-color: #3a4555;
+      cursor: not-allowed;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    footer {
+      background-color: #06080f;
+      color: #6b7280;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 14px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    footer a {
+      color: #6b7280;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Moons -->
+  <script>
+    for (let i = 0; i < 40; i++) {
+      const moon = document.createElement('div');
+      moon.className = 'moon';
+      moon.textContent = '🌕';
+      moon.style.left = Math.random() * 100 + 'vw';
+      moon.style.fontSize = (Math.random() * 14 + 10) + 'px';
+      moon.style.animationDuration = (Math.random() * 20 + 10) + 's';
+      moon.style.animationDelay = (Math.random() * 10) + 's';
+      document.body.appendChild(moon);
+    }
+  </script>
+
+  <header class="hero">
+    <h1>Lunara Studio</h1>
+    <p>Visual host for Lunara plugins with live preview, hierarchy, and config tools</p>
+  </header>
+
+  <section class="section">
+    <h2>Why Lunara Studio?</h2>
+    <div class="features">
+      <div class="feature-card">
+        <h3>Plugin Integration</h3>
+        <p>Host and visualize modular plugins inside a unified interface with live feedback.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Asset & Config Preview</h3>
+        <p>View images, models, and plugin states directly – no external tools needed.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Hierarchy Support</h3>
+        <p>Navigate nested plugin structures visually with drag-and-drop ease.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Lightweight & Fast</h3>
+        <p>Quick installer, native performance, no bloat – optimized for plugin developers.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>How It Works</h2>
+    <p style="text-align: center;">
+      Lunara Studio is made for developers working with Lunara-based modular tools.  
+      Organize, configure, and preview assets – all from one dark, lunar-inspired UI.
+    </p>
+  </section>
+
+  <section class="download-section">
+    <h2>Download the Windows Installer</h2>
+    <p>Start using Lunara Studio by downloading the latest installer package.</p>
+    <a class="download-button disabled" href="installer/LunaraStudioSetup.zip" download>
+      <i class="fas fa-download"></i> Download LunaraStudioSetup.zip
+    </a>
+  </section>
+
+  <footer>
+    &copy; 2025 Lunara Studio. All rights reserved.
+    &nbsp;|&nbsp;
+    <a href="impressum.html">Impressum</a>
+  </footer>
+
+</body>
+</html>
