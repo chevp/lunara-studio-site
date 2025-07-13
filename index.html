@@ -32,17 +32,17 @@
       position: relative;
     }
 
-    .snowflake {
+    .moon {
       position: fixed;
       top: -10px;
       z-index: 0;
-      color: rgba(255, 255, 255, 0.15);
-      font-size: 1.2rem;
-      user-select: none;
-      animation: fall linear infinite;
+      pointer-events: none;
+      animation-name: moonfall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
     }
-
-    @keyframes fall {
+    
+    @keyframes moonfall {
       0% {
         transform: translateY(-10px) rotate(0deg);
         opacity: 1;
