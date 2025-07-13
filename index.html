@@ -7,199 +7,184 @@
     <title>Lunara Studio – Visual Plugin Host</title>
     <link rel="icon" href="assets/lunara-icon256.jpg" type="image/jpeg" sizes="256x256">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-        :root {
-            --color-bg: #1b1b1d;
-            --color-section: #2a2a2d;
-            --color-accent: #d9a550;
-            /* Mond-orange */
-            --color-accent-hover: #c18f3c;
-            --color-text: #e0e0e0;
-            --color-muted: #a0a0a0;
-            --color-border: #3b3b3b;
-        }
+   <style>
+    :root {
+      --color-bg: #070c1a;
+      --color-section: #0d1225;
+      --color-accent: #1e90ff;
+      --color-accent-hover: #1b78d3;
+      --color-text: #e5e7eb;
+      --color-muted: #9ca3af;
+      --color-border: #1f2937;
+    }
 
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: url('assets/moon-texture.png') repeat;
-            opacity: 0.05;
-            pointer-events: none;
-            z-index: 0;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: radial-gradient(circle at 20% 30%, #2f2f31, #1b1b1d 70%);
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            color: var(--color-text);
-            overflow-x: hidden;
-            position: relative;
-        }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #0b1229, #0a0f1c);
+      color: var(--color-text);
+      overflow-x: hidden;
+      position: relative;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      z-index: 0;
+      color: rgba(255, 255, 255, 0.15);
+      font-size: 1.2rem;
+      user-select: none;
+      animation: fall linear infinite;
+    }
 
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
 
-        .moon {
-            position: fixed;
-            top: -10px;
-            z-index: 0;
-            color: rgba(255, 213, 128, 0.15);
-            font-size: 1.2rem;
-            user-select: none;
-            animation: fall linear infinite;
-        }
+    header.hero {
+      background: linear-gradient(to right, #0d1f40, #112c57);
+      color: white;
+      padding: 100px 20px 80px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
 
-        @keyframes fall {
-            0% {
-                transform: translateY(-10px) rotate(0deg);
-                opacity: 1;
-            }
+    header.hero h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
 
-            100% {
-                transform: translateY(110vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
+    header.hero p {
+      font-size: 18px;
+      color: #cbd5e1;
+    }
 
-        header.hero {
-            background: linear-gradient(to right, #11182b, #1a2438);
-            color: white;
-            padding: 100px 20px 80px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
+    .section {
+      max-width: 960px;
+      margin: auto;
+      padding: 60px 20px;
+      position: relative;
+      z-index: 1;
+    }
 
-        header.hero h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
-        }
+    .section h2 {
+      font-size: 28px;
+      color: var(--color-accent);
+      margin-bottom: 20px;
+      text-align: center;
+    }
 
-        header.hero p {
-            font-size: 18px;
-            color: #cbd5e1;
-        }
+    .section p {
+      color: var(--color-muted);
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
 
-        .section {
-            max-width: 960px;
-            margin: auto;
-            padding: 60px 20px;
-            position: relative;
-            z-index: 1;
-        }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
 
-        .section h2 {
-            font-size: 28px;
-            color: var(--color-accent);
-            margin-bottom: 20px;
-            text-align: center;
-        }
+    @media (max-width: 768px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
 
-        .section p {
-            color: var(--color-muted);
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
+    .feature-card {
+      background-color: var(--color-section);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 24px;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-        }
+    .feature-card:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-4px);
+    }
 
-        @media (max-width: 768px) {
-            .features {
-                grid-template-columns: 1fr;
-            }
-        }
+    .feature-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: var(--color-text);
+    }
 
-        .feature-card {
-            background-color: var(--color-section);
-            border: 1px solid var(--color-border);
-            border-radius: 8px;
-            padding: 24px;
-            transition: border-color 0.3s ease, transform 0.3s ease;
-        }
+    .feature-card p {
+      font-size: 14px;
+      color: var(--color-muted);
+    }
 
-        .feature-card:hover {
-            border-color: var(--color-accent);
-            transform: translateY(-4px);
-        }
+    .download-section {
+      background-color: var(--color-section);
+      padding: 60px 20px;
+      text-align: center;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
 
-        .feature-card h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: var(--color-text);
-        }
+    .download-section h2 {
+      font-size: 26px;
+      color: var(--color-accent);
+    }
 
-        .feature-card p {
-            font-size: 14px;
-            color: var(--color-muted);
-        }
+    .download-button {
+      background-color: var(--color-accent);
+      color: white;
+      padding: 14px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 6px;
+      display: inline-block;
+      margin-top: 20px;
+      transition: background-color 0.2s ease;
+    }
 
-        .download-section {
-            background-color: var(--color-section);
-            padding: 60px 20px;
-            text-align: center;
-            border-top: 1px solid var(--color-border);
-            border-bottom: 1px solid var(--color-border);
-        }
+    .download-button:hover {
+      background-color: var(--color-accent-hover);
+    }
 
-        .download-section h2 {
-            font-size: 26px;
-            color: var(--color-accent);
-        }
+    .download-button.disabled {
+      background-color: #3a4555;
+      cursor: not-allowed;
+      opacity: 0.6;
+      pointer-events: none;
+    }
 
-        .download-button {
-            background-color: var(--color-accent);
-            color: black;
-            padding: 14px 30px;
-            font-size: 16px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 6px;
-            display: inline-block;
-            margin-top: 20px;
-            transition: background-color 0.2s ease;
-        }
+    footer {
+      background-color: #0a0f1c;
+      color: #6b7280;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 14px;
+      border-top: 1px solid var(--color-border);
+    }
 
-        .download-button:hover {
-            background-color: var(--color-accent-hover);
-        }
+    footer a {
+      color: #6b7280;
+      text-decoration: none;
+    }
 
-        .download-button.disabled {
-            background-color: #3a4555;
-            cursor: not-allowed;
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        footer {
-            background-color: #06080f;
-            color: #6b7280;
-            text-align: center;
-            padding: 40px 20px;
-            font-size: 14px;
-            border-top: 1px solid var(--color-border);
-        }
-
-        footer a {
-            color: #6b7280;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 
 <body>
